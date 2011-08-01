@@ -1,0 +1,699 @@
+<!DOCTYPE HTML >
+<html>
+	<head>		
+		<title>PackMan</title>
+<style type="text/css">
+
+#packMan{
+	position:absolute;
+	z-index:10;	
+	width:20px;
+	height:20px;
+	-moz-border-radius:0px;
+	-webkit-border-radius:0px;
+	opacity:1;
+	
+}
+#packContainer{
+	position:relative;
+	left:200px;
+	width:500px;
+}
+#roootMap{
+	position:absolute;
+}
+#packField{
+	position:absolute;
+}
+#points{
+	font-size:65px;
+	color:#5D4B4B;
+}
+#lives{
+	font-size:65px;
+	color:#5D4B4B;
+}
+</style>			
+</head>	
+<body >
+Pack Man -- Game in HTML5
+<div class="description">
+			<h4>--Explore Canvas HTML5 element,Game programming--</h4>
+			<p>Control the Packman using arrow keys</p>
+			<p>Status:  Complele 70%</p>
+			<p>
+			Stimulation of the old veteran game PackMan in HTML5.This game follows a developing patten from opera HTML5 game development tutorial. Used Object oriented 
+
+javascript pattern in program . 
+			</p>
+			<p>
+				This is my first attempt to create a user interactive game. This program need a lot of code optimization. The stages that have completed are 
+(1) User 
+
+interaction using Arrow keys to control Packman (2) Random movements of enemies (3) Points and life calculations (4) Collision detection of enemies and 
+
+Packman. Next goals are optimize screen rendering and fix speed issues, auto play mode, level changes etc. 
+			</p>
+						
+		</div>
+		<div  id="packContainer">
+			<img id="packMan"  src="packMan.jpg"/>				
+				<canvas  width=370px; height=410px;  id="packField"></canvas>
+				<canvas  width=370px; height=410px; id="roootMap"></canvas>
+				
+		</div>
+		Points<div id="points"></div>
+		Lives<div id="lives"></div>
+		
+		
+		
+		<textarea id="info"></textarea>
+		
+<script type="text/javascript">
+/*
+
+packman game 
+by sarathsaleem
+
+width:370px;
+height:410px;
+
+
+known bugs: 03:09:2010
+
+
+#=============  :=one pixal diff in up key or down key;--fixed
+#=============  :=slow down when key pressed and not relased-- fixed;
+#=============  :=collision detection need improvement
+#=============  :=Blinky's moveTopackMan  need improvement(use any shortest path algorithm)
+#=============  :=init() function  need improvement
+#=============  := FPS issues ( isolate frames from main part of code)
+*/
+
+var canvas1 = document.getElementById('roootMap');
+var c = canvas1.getContext('2d');
+var canvas2 = document.getElementById('packField');
+var cf = canvas2.getContext('2d');
+var man=document.getElementById('packMan');
+
+var x=0;
+var y=0;
+var scale=10;
+var reset= 'reset';
+var img = new Image();
+// c.fillRect(0,0,364,364);
+c.fillStyle = "#0434FF";  
+  
+
+
+var rootMap = [
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,1],
+	[1,0,0,1,0,0,1,0,0,1,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1],
+	[1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,0,0,1],
+	[1,0,0,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,0,0,1],
+	[1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,0,0,0,0,0,1],	
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1],
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1],
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,1,1,0,0,1,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,1,1,1,1,1,1],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	[1,1,1,1,1,1,1,0,0,1,1,0,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,0,0,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,1],
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,1,0,0,0,0,0,1],	
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1],
+	[1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,1],
+	[1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,1],
+	[1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+	[1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+	[1,1,1,1,0,0,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,0,0,1,1,1,1],
+	[1,1,1,1,0,0,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,0,0,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1],
+	[1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],	
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+Object.prototype.clone = function() {
+  var newObj = (this instanceof Array) ? [] : {};
+  for (i in this) {
+   if(!this.hasOwnProperty(i))continue;
+    if (this[i] && typeof this[i] == "object") {
+      newObj[i] = this[i].clone();
+    } else newObj[i] = this[i];
+  } return newObj;
+};
+
+var packPoints=rootMap.clone();
+
+/*
+var img = new Image();
+  img.onload = function(){
+    c.drawImage(img,0,0); 
+	
+  }
+  img.src = '/root.jpg';
+*/
+//---------------------------------------------------------------------init()--------------------------------------------------------------------
+var interval=30;
+var currentTime=0;
+
+
+function init(){
+
+	packMan = {
+			x : 170,			// current x, y position
+			y :300,
+			sensorX:0,
+			sensorY:0,
+			sensorX1:0,
+			sensorY1:0,
+			dir :'right',	
+			dirN : null, // the direction that the player is turning,
+			speed : 1,// how far (in map units) does the player move each step/update	
+			lives:lives
+		}
+		updateImg(packMan);
+		
+	if(packMan.lives==0)
+	{
+		alert('Game Over');
+		lives=3;
+		points=0;
+		packPoints=rootMap.clone();
+		drawDot();
+	}
+
+	for(var i=0;i<enemies.length;i++){
+		enemies[i].x=170;
+		enemies[i].y=170;
+	}	
+
+		
+	drawRoot();
+	
+var startDraw=setInterval('update()',interval);
+var startMov=setInterval('allMovement()',30);
+document.onkeyup=findKey; 
+	
+	
+}
+
+function update()
+{
+//	(packMan.lives == 0) ? (init()) : '';
+	man.style.left=(packMan.x)+"px";
+	man.style.top=(packMan.y)+"px";		
+	
+	cf.fillStyle="#000";
+	cf.fillRect(0,0,370,410);
+	drawPackman();
+	drawEnemy(Blinky); 
+	drawEnemy(Pinky);
+	drawEnemy(Inky);
+	drawEnemy(Clyde);
+	
+	//drawEnemy(giveEnemies());
+	//move(giveEnemies());
+ // c.fillRect(packMan.x-12,packMan.y-15,20,20); 
+ //document.getElementById('info').innerHTML=packMan.x+'X---'+packMan.y+'---Y</br>';
+ 
+ 			
+	checkCollision();
+	
+	drawDot();
+	
+	document.getElementById('points').innerHTML=points;
+	document.getElementById('lives').innerHTML=packMan.lives;
+}
+function allMovement(){
+	move(packMan);
+	move(Blinky);	
+	move(Pinky);
+	move(Inky);		
+	move(Clyde);
+}
+
+//draw packman--------------------------------------------------------------------
+
+var packMan = {};
+
+
+function Enemy() {
+	this.name='';
+	this.x = 170;			// current x, y position
+	this.y =170;
+	this.sensorX=0;
+	this.sensorY=0;
+	this.sensorX1=0;
+	this.sensorY1=0;
+	this.dir ='right';
+	this.dirN =null;// the direction that the player is turning,
+	this.speed= 1;
+	this.color='red'	// how far (in map units) does the player move each step/update	
+}
+
+var Blinky = new Enemy();
+Blinky.name='Blinky';
+Blinky.x=20;
+Blinky.y=40;
+
+var Pinky = new Enemy();
+Pinky.spped=1;
+Pinky.color='#5EFFFD';
+
+var Inky = new Enemy();
+Inky.color='#F5A9B3';
+
+var Clyde = new Enemy();
+Clyde.color='#EBAE44';
+
+var enemies=[Blinky,Pinky,Inky,Clyde];
+
+	
+var lives=3;
+
+//------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+// drawing root---------------------------------------------------------------------
+
+function drawRoot(){
+
+		for(var x=0;x<rootMap[0].length;x++){
+
+				for(var y=0;y<rootMap.length;y++)
+				{
+					if(rootMap[y][x]==1)
+					{
+					c.fillRect(x*scale,y*scale,scale,scale);
+					}
+					
+					
+				}
+			}
+
+}
+var points=0;
+function drawDot(){
+	points=0;
+	for(var x=0;x<rootMap[0].length;x++)
+	{
+
+		for(var y=0;y<rootMap.length;y++)
+				{
+					if(packPoints[y][x]==0)
+					{					
+					cf.fillRect(x*scale-2,y*scale-2,2,2);//doots
+					}
+					if(packPoints[y][x]==2)
+					{					
+					points+=1;
+					}
+				}
+	}
+			
+packPoints[Math.floor(packMan.y/scale)+1][Math.floor(packMan.x/scale)+1]=2;
+
+}
+
+
+
+function drawPackman(){	
+		cf.fillStyle="#000";
+		//cf.clearRect(0,0,370,410);			
+		cf.fillStyle="rgba(240,240,44,1)";	
+		/*cf.beginPath();		
+		cf.arc(packMan.x+10,packMan.y+10,10,0,Math.PI*2,true);	
+		c.closePath();	
+		cf.beginPath();		
+		cf.moveTo(packMan.x+10,packMan.y+10);
+		cf.lineTo(packMan.x+10,packMan.y+20);
+		cf.lineTo(packMan.x+20,packMan.y+20);
+		cf.closePath();*/
+		cf.fill(); 		
+		
+}
+
+//draw Enemy--------------------------------------------------------------------
+
+
+function drawEnemy(name){		
+		cf.fillStyle=name.color;
+		cf.fillRect(name.x,name.y,20,20);		
+		
+}
+
+//to find the key code---------------
+
+var key='';
+function findKey(e) {
+
+	if(key!=e.keyCode){
+	
+			key=e.keyCode;
+			switch (e.keyCode) {
+
+				  case 39://right
+				  {							  
+				  packMan.dirN='right';			
+				  } break;			 
+				  case 37://left
+				  { 			
+				  packMan.dirN='left';			 
+				  }break;
+				  
+				  case 40: //down
+				  {			
+				 packMan.dirN='down';			  
+				  }  break;
+				
+				  case 38://up
+				  {  			 
+				 packMan.dirN='up';			
+				  } 
+				  
+			}
+	}
+}
+
+//change direction when stoped for enemies
+
+var directons=['right','left','down','up'];
+function changeEnemyDir(name){
+
+	name.dir=directons[Math.floor(Math.random()*4)];
+	}
+
+//draw sensor for checking the next move position will not collide
+
+function drawSensor(name,dir){
+
+	switch (dir){
+			case 'right':
+			{
+			name.sensorX=name.x+20;
+			name.sensorY=name.y;
+			name.sensorX1=name.x+20;
+			name.sensorY1=name.y+19;	
+			}break;
+			case 'left':
+			{						
+			name.sensorX=name.x-1;
+			name.sensorY=name.y;
+			name.sensorX1=name.x-1;
+			name.sensorY1=name.y+19;				
+			}break;
+			case 'down':
+			{
+			name.sensorX=name.x;
+			name.sensorY=name.y+20;
+			name.sensorX1=name.x+19;
+			name.sensorY1=name.y+20;			
+			}break
+			case 'up':
+			{
+			name.sensorX=name.x;
+			name.sensorY=name.y-1;
+			name.sensorX1=name.x+19;
+			name.sensorY1=name.y-1;							
+			}break;
+			
+		}
+//(isBlocking(packMan.sensorX,packMan.sensorY,packMan.sensorX1,packMan.sensorY1))  ? '' : (packMan.dir=packMan.dirN);		
+
+ /*
+ */
+	
+}
+
+// chech the next position is colliding-----------
+
+function isBlocking(name,x,y,x1,y1) {
+
+	//dooe left and right side-- allow pass through doors
+
+	if (x == 0 && y == 180){ //door left
+	name.x=349;
+	name.y=180;
+	name.dir='left';	
+	}
+	if (x == 370 && y == 180){ //door right
+	name.x=0;
+	name.y=180;
+	name.dir='right';	
+	}		
+
+	// return true if the map block is not 0, ie. if there is a blocking wall.
+	
+	return (
+	rootMap[Math.floor(y/scale)][Math.floor(x/scale)] == 1
+	||
+	rootMap[Math.floor(y1/scale)][Math.floor(x1/scale)] == 1
+	||
+	rootMap[Math.floor(((y+y1)/2)/scale)][Math.floor(((x+x1)/2)/scale)] == 1
+	);
+	
+}
+
+
+function updatePos(dir,name){
+switch(dir){
+					case 'right':
+					name.x+=name.speed;
+					break;
+					case 'left':
+					name.x-=name.speed;
+					break;
+					case 'down':
+					name.y+=name.speed;
+					break;
+					case 'up':
+					name.y-=name.speed;					
+					}
+					
+}
+
+function updateImg(name){
+	
+		switch(name.dir){
+							case 'right':
+							man.src ='packMan.jpg';	
+							break;
+							case 'left':
+							man.src ='packManleft.jpg';
+							break;
+							case 'down':
+							man.src='packManDown.jpg';
+							break;
+							case 'up':
+							man.src ='packManUp.jpg';			
+							}
+					
+		
+					
+}
+
+
+function allEnemy(item,num)
+		{
+		var a=Math.floor(enemies[item].x/scale);
+		var b=Math.floor(enemies[item].y/scale);
+		var enemyPos=[ 
+						[a,b], [a,b+1],				
+						[a+1,b],[a+1,b+1]						
+					];
+			for(var i=0;i<enemyPos.length;i++)
+					{
+				for(var j=0;i<enemyPos[j].length;j++)
+					{			
+						return enemyPos[i][num];
+					}
+				}
+			
+		}
+		
+function checkCollision(){
+/*
+[x y]----------[x+1,y] 
+   |			|
+   |			|
+[x,y+1]------[x+1,y+1]
+*/
+var x=Math.floor(packMan.x/scale);
+var y=Math.floor(packMan.y/scale);
+var packman=[ 
+				[x,y], [x,y+1],				
+				[x+1,y],[x+1,y+1]						
+			];
+for(var i=0;i<packman.length;i++)
+				{				
+				 for(var j=0;j<enemies.length;j++)
+					{
+						if(	packman[ i ][ 0 ]==allEnemy(j,0) && 	packman[ i ][ 1 ]==allEnemy(j,1) )	
+						
+									{
+										lives-=1;
+										init();//collision
+										
+									}		
+					}	
+				}				
+}
+
+
+
+
+function newPath(name){
+/*
+##--check current dir
+##--check if-blocking for other two  than current and opp-- ie if going down dont look up;;; current dir is checking in normal move function
+##--if any possibleMove manke that to name.dirN
+##--if not blocking make a random change in  dir
+*/	
+if(name==Blinky){
+	 moveToPackman(name);
+}
+else{
+	switch (name.dir){
+	
+			case ('right' || 'left'):
+			{			
+			//
+			drawSensor(name,'down');
+			(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' : ( ((Math.floor(Math.random()*2))==1 ) ? (name.dir='down'):	'' );
+			drawSensor(name,'up');
+			(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' :  ( ((Math.floor(Math.random()*2))==1 ) ? (name.dir='up'):	'' );	
+			}break;			
+			case ('down' || 'up'):
+			{			
+			drawSensor(name,'left');
+			(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' :  ( ((Math.floor(Math.random()*2))==1 ) ? (name.dir='left'):	'' );
+			drawSensor(name,'right');
+			(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' :  ( ((Math.floor(Math.random()*2))==1 ) ? (name.dir='right'):	'' );				
+			}break;
+			
+		}					
+		
+	}
+}
+
+function moveToPackman(name){
+
+	
+	switch (name.dir){
+	
+			case ('right' || 'left'):
+			{			
+			//
+				if(packMan.y > name.y)
+				{
+				drawSensor(name,'down');
+				(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' : (name.dir='down');			
+				}
+				else{
+				drawSensor(name,'up');
+				(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' :  ( name.dir='up');	
+				}
+			}break;			
+			case ('down' || 'up'):
+			{	
+				if(packMan.x < name.x)
+				{			
+				drawSensor(name,'left');
+				(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' :  ( name.dir='left');
+				}
+				else{
+				drawSensor(name,'right');
+				(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))  ? '' :  ( name.dir='right');				
+				}
+			}break;
+			
+		}				
+	
+}
+
+/*
+main moving function
+variables dir---direction to move,
+				dirN-- proposed direction to move
+				sensor -- points at the extrime corners  of  object in moving direction
+functions calling---- drawSensor() -->> to draw poins at the corners moving , also for checking possible move
+								isBlocking()-->> check if there is any blockin moving dir,also for checking possible move
+								updatePos()-->> update the position to next given direction
+								changeEnemyDir()-->>change the direction of enemies when it stop
+								updateImg()-->> update packman images with change in direction								
+check if there ids any proposed dir 
+*/
+
+function move(name){
+				if(name.dirN!=null)
+				{			
+					drawSensor(name,name.dirN);
+					if(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))
+					{
+							if(name.dirN!=name.dir)
+							{	
+								drawSensor(name,name.dir);								
+								if(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1))
+								{
+									(name!=packMan) ?(changeEnemyDir(name)) :'';
+								}
+								else{								
+								updatePos(name.dir,name);								
+								}
+							}
+							//else{}
+					}
+					else
+					{
+						name.dir=name.dirN;
+						name.dirN=null;						
+						(name==packMan) ? (updateImg(name)):'' ;
+					}
+				}
+				else{
+				(name!=packMan) ? (newPath(name)) :'';				
+					drawSensor(name,name.dir);									
+						if(isBlocking(name,name.sensorX,name.sensorY,name.sensorX1,name.sensorY1)) 
+						{
+						(name!=packMan) ? (changeEnemyDir(name)):'' ;
+						}
+						else{
+						updatePos(name.dir,name);
+						name.dirN=null;
+						}					
+				}
+			
+			
+}
+			
+		
+
+
+init();
+
+	
+</script>	
+		
+</body>
+</html>
