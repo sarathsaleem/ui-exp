@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8>
+<title>A simple Physics Blob Exp</title>
+<script type='text/javascript' src="js/jquery-1.6.2.min.js"></script>
+<script type='text/javascript' src="js/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type='text/javascript' src='js/DAT.GUI.min.js'></script>
+
+<style type="text/css">
+.guidat{float:none}
+#exp{background:#000;}
+</style>
+</head>
+<body>
+    <canvas id="exp" width="900" height="600"  ></canvas>
+	<div id="proptab"></div>
+	<div id="fps" style="position:absolute;top:0px;right:0px;margin:5px;background:#000;color:#fff;font-weight:bold"></div>
+</body>
+<script type="text/javascript">
+	var SCREEN_WIDTH = window.innerWidth;
+	var SCREEN_HEIGHT = window.innerHeight;
+	
+	var canvas;
+	var context;
+	var blob;
+	
+	var screenX = window.screenX;
+	var screenY = window.screenY;
+	
+	var mouseX = (window.innerWidth - SCREEN_WIDTH);
+	var mouseY = (window.innerHeight - SCREEN_HEIGHT);
+	var lastLoop = new Date;
+	var fps = '';
+	var fpsData = document.getElementById('fps');
+	var rotation=0;	
+	var PI = Math.PI;	
+	var radian = PI/180;
+	var sphere = new getSphere(150);
+	var sphereArray = sphere.generatePoints();
+
+function init(){		
+		canvas = document.getElementById('exp');
+		
+		if (canvas && canvas.getContext) {
+			context = canvas.getContext('2d');			
+			canvas.addEventListener('mousemove', documentMouseMoveHandler, false);			
+			setInterval( loop, 1000 / 50 );
+		}
+}
+var t0 = Date.now();
+var angle=0;
+var d = document;
+var time = 0,w = d.width,h = d.height,cos = Math.cos,sin = Math.sin,PI = Math.PI;
+
+function loop()
+{ 
+	var thisLoop = new Date;
+    fps = 1000 / (thisLoop - lastLoop);
+    lastLoop = thisLoop;
+		
+		clearArea(0,0,900,600);		
+		
+		drawSphere(sphere);
+		
+}
+function updateSphere(){
+	sphere.radius = SphereGUI.Radius;
+	sphere.vspace = 80 - SphereGUI.Vdensity;
+	sphere.hspace = 80 - SphereGUI.Hdensity;		
+	sphere.points =[];
+	sphereArray = sphere.generatePoints();
+}
+function getRandom(x){
+	if(SphereGUI.random)
+	{
+		return  (x == 1) ? .35 : .05 ;	
+	}
+	else { 
+		return 1;
+	}
+}
+function getSphere(radius,nopoints){
+/*
+
+*/
+		this.radius=(radius)? radius : 100;			
+		this.points =[];		
+		this.rotation = true;
+		this.vspace =  15;
+		this.hspace = 15;	 
+		 
+		 this.rotateX=function(point, radians) {
+                var y = point.y;
+                point.y = (y * Math.cos(radians)) - (point.z * Math.sin(radians))*getRandom(1);
+                point.z = (y * Math.sin(radians)) + (point.z * Math.cos(radians));
+            }
+            
+		this.rotateY=function(point, radians) {
+                var x = point.x;
+                point.x = (x * Math.cos(radians)) - (point.z * Math.sin(radians))*getRandom(2);
+                point.z = (x * Math.sin(radians)) + (point.z * Math.cos(radians))
+            }
+
+		this.rotateZ=function(point, radians) {
+                var x = point.x;
+                point.x = (x * Math.cos(radians)) - (point.y * Math.sin(radians));
+                point.y = (x * Math.sin(radians)) + (point.y * Math.cos(radians));
+            }
+
+		this.projection=function(xy, z, xyOffset, zOffset, distance) {
+                return ((distance * xy) / (z - zOffset)) + xyOffset;
+			}
+		
+				
+		this.generatePoints=function()
+		{
+
+			for (var i=this.vspace; i<180; i+=this.vspace)
+			{				
+					for (var angle=0; angle<360; angle+=this.hspace)
+					{					
+						var points = {};
+						var x = Math.sin(radian*i)*this.radius;
+						points.x = Math.cos(angle*radian)*x;
+						points.y = Math.cos(radian*i)*this.radius;
+						points.z = Math.sin(angle*radian)*x;
+						this.points.push(points);
+					}
+				}
+			
+		
+				return this.points;
+		}
+}
+
+function drawSphere(){		
+		var p ={x:0,y:0,z:0}
+		for(i = 0,len=sphereArray.length; i < len; i++) {
+		
+                    p.x = sphereArray[i].x;
+					p.y = sphereArray[i].y;
+					p.z = sphereArray[i].z;
+					
+					if(sphere.rotation){
+											
+						sphere.rotateX(p, mouseX * .00005);
+						sphere.rotateY(p, mouseY * .0001);
+						sphere.rotateZ(p, rotation);
+						
+						sphereArray[i].x = p.x;
+						sphereArray[i].y = p.y;
+						sphereArray[i].z = p.z;
+					}
+				
+                    x = sphere.projection(p.x, p.z, 900/2.0, 600, 1000);
+                    y = sphere.projection(p.y, p.z, 600/2.0, 600, 1000);
+
+                    if((x >= 0) && (x < 900)) {
+                        if((y >= 0) && (y < 600)) {                            
+                                drawPoints(x, y,"#CCC");                            
+                        }
+                    }                   
+             }   
+                rotation = .002;
+
+				
+}
+function drawPoints(x,y,color){
+			context.beginPath();
+			context.fillStyle = (color) ? color : '#FFF';;
+			context.arc(x, y, 2, 0, Math.PI*2, true);
+			context.fill();
+}
+function clearArea(x,y,w,h){					
+			context.clearRect(x,y,w,h);		
+			context.fill();			
+}
+function documentMouseMoveHandler(event) {
+		mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5;
+		mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * .5;
+}
+function  showFPS(){
+	fpsData.innerHTML=Math.round(fps)
+}
+setInterval(showFPS, 300 );
+
+init();
+
+var gui = new DAT.GUI();
+var SphereGUI = {	
+    Radius: 150,
+	Vdensity:65,
+	Hdensity:65,
+	rotation:true,
+	random:false
+};
+gui.add(SphereGUI, 'Radius').min(10).max(500).step(1).onChange(function(){updateSphere()});
+gui.add(SphereGUI, 'Vdensity').min(10).max(75).step(1).onChange(function(){updateSphere()});
+gui.add(SphereGUI, 'Hdensity').min(10).max(75).step(1).onChange(function(){updateSphere()});
+gui.add(SphereGUI, 'rotation').name('Rotation').onChange(function(){sphere.rotation = SphereGUI.rotation;});
+gui.add(SphereGUI, 'random').name('Random').onChange(function(){updateSphere()});
+gui.name('Sphere');
+gui.domElement.style.float = 'none';
+
+</script>
+
+</html>
