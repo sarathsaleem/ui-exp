@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8>
+<title>A simple Physics Blob Exp</title>
+<script type='text/javascript' src="js/jquery-1.6.2.min.js"></script>
+<script type='text/javascript' src="js/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type='text/javascript' src='js/DAT.GUI.min.js'></script>
+
+<style type="text/css">
+.guidat{float:none}
+</style>
+</head>
+<body>
+    <canvas id="exp" width="900" height="600" ></canvas>
+	<div id="proptab"></div>
+	<div id="fps" style="position:absolute;top:0px;right:0px;margin:5px;background:#000;color:#fff;font-weight:bold"></div>
+</body>
+<script type="text/javascript">
+	var SCREEN_WIDTH = window.innerWidth;
+	var SCREEN_HEIGHT = window.innerHeight;
+	
+	var canvas;
+	var context;
+	var blob;
+	
+	var screenX = window.screenX;
+	var screenY = window.screenY;
+	
+	var mouseX = (window.innerWidth - SCREEN_WIDTH);
+	var mouseY = (window.innerHeight - SCREEN_HEIGHT);
+	var lastLoop = new Date;
+	var fps = '';
+	var fpsData = document.getElementById('fps');
+	var rotation=0;
+	var rotation = 0;
+    var distance = 0;
+	var space = 15;
+	var PI = Math.PI;
+	var radius = 200;
+	var radian = PI/180;
+
+function init(){
+		
+		canvas = document.getElementById('exp');
+		
+		if (canvas && canvas.getContext) {
+			context = canvas.getContext('2d');
+			
+			// Register event listeners
+			document.addEventListener('mousemove', documentMouseMoveHandler, false);
+			/* document.addEventListener('mousedown', documentMouseDownHandler, false);
+			document.addEventListener('mouseup', documentMouseUpHandler, false);
+			document.addEventListener('touchstart', documentTouchStartHandler, false);
+			document.addEventListener('touchmove', documentTouchMoveHandler, false);
+			document.addEventListener('touchend', documentTouchEndHandler, false);
+			document.addEventListener('keydown', documentKeyDownHandler, false);
+			window.addEventListener('resize', windowResizeHandler, false);
+			*/						
+			setInterval( loop, 1000 / 50 );
+		}
+}
+var t0 = Date.now();
+var angle=0;
+var d = document;
+var time = 0,w = d.width,h = d.height,cos = Math.cos,sin = Math.sin,PI = Math.PI;
+function loop(){ 
+	var thisLoop = new Date;
+    fps = 1000 / (thisLoop - lastLoop);
+    lastLoop = thisLoop;
+		
+		clearArea(0,0,900,600);	
+		
+		var radius =circleGUI.radius+(50* Math.sin( angle*(Math.PI / 180) ));
+		var majorAxis =elipsleGUI.Semimajor+(50* Math.sin( angle*(Math.PI / 180) ));
+		var minorAxis =elipsleGUI.Semiminor+(50* Math.sin( angle*(Math.PI / 180) ));
+		
+		var myCircle = new drawCircle(circleGUI.X,circleGUI.Y,radius,circleGUI.points);
+		var myElipse = new drawElipse(elipsleGUI.X,elipsleGUI.Y,majorAxis,minorAxis,elipsleGUI.angle,elipsleGUI.points);
+		
+		
+		drawShape(myCircle,'#480848');
+		drawShape(myElipse);				
+		angle += 5;	
+		
+}
+
+function drawElipse(X,Y,a,b,angle,nopoints){
+/*
+* This functions returns an array containing points to draw an
+* ellipse.
+*
+* @param a - Semimajor axis
+* @param b - Semiminor axis
+* @param angle - Angle of the ellipse
+* @param nopoints - No of points to return 
+*/
+		this.a=(a)? a : 100;
+		this.b=(b)? b : 70;
+		this.angle=(angle)? angle : 180;
+		this.steps = (nopoints)? nopoints : 30;
+		this.points =[];
+		this.X = (X) ? X :100;
+		this.Y = (Y) ? Y :100;
+		 // Angle is given by Degree Value
+		 var beta = -this.angle * (Math.PI / 180); //(Math.PI/180) converts Degree Value into Radians
+		 var sinbeta = Math.sin(beta);
+		 var cosbeta = Math.cos(beta);
+		
+		var arcs = (2 * Math.PI )/ this.steps ;
+		var alpha = 0;
+ 
+		  for (var i = 0;i < this.steps; i++) 
+		  {
+			var sinalpha = Math.sin(alpha);
+			var cosalpha = Math.cos(alpha);
+		 
+			var X = this.X  + (this.a * cosalpha * cosbeta - this.b * sinalpha * sinbeta);
+			var Y = this.Y  + (this.a * cosalpha * sinbeta + this.b * sinalpha * cosbeta);
+			var position={x:X,y:Y};
+			this.points.push(position);
+			alpha+=arcs;
+		}
+		
+		return this.points;
+}
+
+
+function drawCircle(X,Y,radius,noPoints){
+
+/*
+* This functions returns an array containing points to draw an
+* circle.
+*
+* @param radius - radius of a circle
+* @param nopoints - No of points to return 
+*/		
+		this.radius = (radius) ? radius : 100;
+		this.steps = (noPoints) ? noPoints : 10;
+		this.points =[];
+		this.X = (X) ? X :100;
+		this.Y = (Y) ? Y :100;
+		 // Angle is given by Degree Value
+		  var arcs = (2 * Math.PI )/ this.steps ;
+		  var alpha = 0;
+		  
+		  for (var i = 0; i < this.steps; i++) 
+		  {
+			 
+			var X = this.X + (this.radius * Math.cos(alpha) )
+			var Y = this.Y + (this.radius * Math.sin(alpha) );
+			var position={x:X,y:Y};
+			
+			this.points.push(position);
+			
+			alpha+=arcs;
+		}		
+		return this.points;
+
+}
+function drawShape(shape,color){
+/*
+* This functions draw the gemetry component with specified no points in shape object
+* 
+* @param shape - gemetry component to draw.
+* @param color - color to draw the points. 
+*/	
+	color = (color) ? color : '#000';
+	for (var i = 0; i < shape.length; i ++) 
+		{
+			var X = shape[i].x;
+			var Y = shape[i].y;
+
+			//var X = projection(shape[i].x, shape[i].z, 900/2.0, 100.0, 30);
+            //var Y = projection(shape[i].y, shape[i].z, 600/2.0, 100.0, 30);			
+			drawPoints(X,Y,color)		
+		}	
+		
+}
+
+
+function drawPoints(x,y,color){
+			context.beginPath();
+			context.fillStyle = (color) ? color : '#000';;
+			context.arc(x, y, 2, 0, Math.PI*2, true);
+			context.fill();
+}
+function clearArea(x,y,w,h){			
+			context.clearRect(x,y,w,h);			
+}
+function documentMouseMoveHandler(event) {
+		mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5;
+		mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * .5;
+}
+
+function distanceBetween(p1,p2) {
+	var dx = p2.x-p1.x;
+	var dy = p2.y-p1.y;
+	return Math.sqrt(dx*dx + dy*dy);
+}
+function  showFPS(){
+	fpsData.innerHTML=Math.round(fps)
+}
+setInterval(showFPS, 300 );
+
+init();
+
+var gui = new DAT.GUI({
+    height : 4 * 32 - 1
+});
+var gui1 = new DAT.GUI({
+    height : 6 * 32 - 1
+});
+var circleGUI = {
+	X:300,
+	Y:300,
+    radius: 100,
+	points:50
+};
+gui.add(circleGUI, 'X').min(0).max(500);
+gui.add(circleGUI, 'Y').min(0).max(500);
+gui.add(circleGUI, 'radius').min(0).max(500);
+gui.add(circleGUI, 'points').min(10).max(150);
+gui.name('Circle');
+
+var elipsleGUI = {
+	X:300,
+	Y:300,
+	Semimajor:200,
+	Semiminor:100,
+	angle:180,
+	points:50
+};
+gui1.add(elipsleGUI, 'X').min(0).max(500);
+gui1.add(elipsleGUI, 'Y').min(0).max(500);
+gui1.add(elipsleGUI, 'Semimajor').min(0).max(500);
+gui1.add(elipsleGUI, 'Semiminor').min(0).max(500);
+gui1.add(elipsleGUI, 'angle').min(0).max(360);
+gui1.add(elipsleGUI, 'points').min(10).max(150);
+gui1.name('Elipse');
+
+// Do some custom styles ...
+gui.domElement.style.float = 'none';
+
+</script>
+
+</html>
