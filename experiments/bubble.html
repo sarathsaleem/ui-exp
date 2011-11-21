@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8>
+<title>A simple Physics Blob Exp</title>
+<script type='text/javascript' src="js/jquery-1.6.2.min.js"></script>
+<script type='text/javascript' src="js/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type='text/javascript' src='js/DAT.GUI.min.js'></script>
+
+<style type="text/css">
+body{background:#000;overflow:hidden;}
+.circle{
+	width:400px;
+	height:400px;
+	margin:0 auto;
+	position:absolute;
+	top:100px;
+	border-radius:200px;
+}
+.color5{
+	background: #035AE7; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #035AE7 0%, #050303 10%, #000000 42%, #035AE7 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#035AE7), color-stop(10%,#050303), color-stop(42%,#000000), color-stop(100%,#035AE7)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #035AE7 0%,#050303 10%,#000000 42%,#035AE7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #035AE7 0%,#050303 10%,#000000 42%,#035AE7 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #035AE7 0%,#050303 10%,#000000 42%,#035AE7 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, #035AE7 0%,#050303 10%,#000000 42%,#035AE7 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#035AE7', endColorstr='#035AE7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+</style>
+</head>
+<body>
+<div id="fps" style="position:absolute;top:0px;right:0px;margin:5px;background:#000;color:#fff;font-weight:bold"></div>
+   
+	<div class="circle color5" style="left:650px;top:120px"></div>
+	
+</body>
+<script type="text/javascript">
+
+var screenX = window.screenX;
+var screenY = window.screenY;
+var SCREEN_WIDTH = window.innerWidth;
+var SCREEN_HEIGHT = window.innerHeight;		
+var mouseX = (window.innerWidth - SCREEN_WIDTH);
+var mouseY = (window.innerHeight - SCREEN_HEIGHT);
+var mouseIsDown = true;
+var mouseDownOffset = { x: 0, y: 0 };
+
+var fps = '';
+var fpsData = document.getElementById('fps');
+var lastLoop = new Date;
+var t0 = Date.now();
+
+var circles = $(".circle");
+var w = 400;
+var h = 400;
+var boundary = { x: 0, y: 0, width: 0, height: 0 };
+
+var gravity = { x: 0, y: 1.2 };
+var randomPos = { x: 0, y: 0 };
+
+function Circles()
+ {
+	this.position = { x: 0, y: 0 };
+	this.velocity = { x: 0, y: 0 };
+	this.radius = 110;	
+	this.dragging = false;
+	this.circles = [];
+	this.generateCircles = function()
+	{
+		for(var i=0;i <10;i++)
+		{
+		var pos = {
+			x:Math.floor(Math.random()*810),
+			y:Math.floor(Math.random()*810),
+			color:"color"+Math.floor(Math.random()*7)
+			}	
+			this.circles.push(pos);
+		}
+		
+		return this.circles;
+	}
+}
+var myC = new Circles();
+document.addEventListener('mousemove', documentMouseMoveHandler, false);
+windowResizeHandler();
+
+function render()
+{
+	var thisLoop = new Date;
+	fps = 1000 / (thisLoop - lastLoop);
+	bubble();
+	lastLoop = thisLoop;
+
+
+	
+		if( mouseIsDown ) {
+			myC.velocity.x = ( ( mouseX ) - myC.position.x ) * 0.03;
+			myC.velocity.y = ( (  mouseY  ) - myC.position.y ) * 0.03;
+		}
+
+		myC.position.x += myC.velocity.x;
+		myC.position.y += myC.velocity.y;
+		
+		myC.position.x = Math.max( Math.min( myC.position.x, boundary.x + boundary.width ), boundary.x );
+		myC.position.y = Math.max( Math.min( myC.position.y, boundary.y + boundary.height ), boundary.y );
+		
+		circles.css({'left':myC.position.x+'px','top':(myC.position.y)+'px'})
+	
+}
+
+
+function bubble(){
+	var t = (Date.now()-t0)/1000;
+	var a = Math.max((1-(t%Math.PI))*25,0);
+	var width = w+Math.sin(t*25)*a;
+	var height = h-Math.sin(t*25-0.5)*a;
+	//circles.each(function(){
+		//$(this).css('top',(y-Math.abs(Math.sin(t)*100)+h/2)+"px");
+		$(circles).css('margin',(-height /2)+'px 0 0'+(-width/2)+'px');		
+		$(circles).css('width',width +"px");
+		$(circles).css('height',height+"px");
+		//});
+}
+
+
+setInterval('render()',30); 
+
+
+function windowResizeHandler() {
+		SCREEN_WIDTH = window.innerWidth;
+		SCREEN_HEIGHT = window.innerHeight;
+				
+		boundary.x = 0;
+		boundary.y = 0;
+		boundary.width = SCREEN_WIDTH-101;
+		boundary.height = SCREEN_HEIGHT-101;
+}
+function documentMouseMoveHandler(event) {
+		mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5;
+		mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * .5;
+}
+function  showFPS(){
+randomPos.x = Math.floor(Math.random()*810);
+randomPos.y = Math.floor(Math.random()*810);
+
+	fpsData.innerHTML=Math.round(fps)
+}
+setInterval(showFPS, 500 );
+
+	
+</script>
+
+</html>

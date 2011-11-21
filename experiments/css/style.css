@@ -1,0 +1,158 @@
+
+body, div, ul, li, p , h1,h2,h3,h4{
+    margin: 0;
+    padding: 0;
+	font-family: arial,sans-serif;
+	font-size:14px;
+	color:#55503E;
+}
+h1{
+	font-size:24px;
+	padding: 10px 0;
+}
+h2{
+	font-size:20px;
+	 padding: 10px 0;
+}
+h3{
+	font-size:18px;
+	 padding: 10px 0;
+}
+h4{
+	font-size:14px;
+	padding: 10px 0;
+}
+img {
+    border: 0 none;
+}
+ul,li{
+	list-style:none;
+	}
+p{
+	padding:5px 0;
+}
+#wrapper{
+	width:758px;
+	padding: 40px 80px;
+	margin:0 auto;
+	border:1px solid #BAAC7D;
+	border-top:0px;
+	}
+#header{
+	padding:0 0 20px 0;
+	border-bottom:1px solid #BAAC7D;
+}
+.portfolio{
+	width:839px;
+	padding: 0 80px 0 0;
+	height:50px;
+	background:#A09261;
+	text-allign:center;
+	margin:0 auto;
+	border-left:1px solid #BAAC7D;
+}
+.portfolio h1{
+	width:295px;
+	height:50px;
+	background:#fff;	
+	font-size:30px;	
+	padding:0 0 0 80px;
+}
+.address{
+	width:300px;
+	height:120px;
+	float:left;
+}
+.contact{
+	float:right;	
+}
+.clear{
+	clear:both;
+}
+#skills{
+	border-bottom:1px solid #BAAC7D;
+	padding:20px 0;
+}
+#skills ul li{
+	padding:5px 40px;
+}
+.workItems{	
+	margin:10px 0;
+	border-bottom:5px solid #D3C695;
+	padding:10px;
+}
+#works{
+	border-bottom:1px solid #BAAC7D;
+	padding:0 0 20px 0;
+}
+.education {
+	padding:0 0 20px 0;
+	border-bottom:1px solid #BAAC7D;
+}
+.education label,#footer label{
+	padding: 5px;
+	width:180px;
+	display:block;;
+	float:left;	
+}
+.education p,#footer p{
+	float:left;
+}
+.education br,#footer br{
+	clear:both;
+}
+#footer{
+	padding:20px 0;
+}
+a{
+	color:#A09261;
+}
+.demoBtn{
+	background: #A09261; /* old browsers */
+	background: -moz-linear-gradient(top, #A09261 0%, #9E832C 77%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A09261), color-stop(77%,#9E832C)); /* webkit */
+    color: #FFFFFF;
+    display: block;
+    font-size: 20px;
+	font-weight:bold;
+    height: 24px;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    width: 150px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	cursor:pointer;
+}
+.description{
+	width:500px;
+	float:left;
+}
+.screenShot{
+	width:200px;
+	float:right;
+}
+.screenShot img{
+	width:150px;
+	height:100px;
+	border:1px solid #A09261;
+	
+}
+.samples  .demoBtn{
+	margin:5px 0;
+	font-size: 16px;
+	margin: 5px 0;
+    padding: 5px 0;
+	width: 85px;
+	height:20px;
+}
+.miscell .screenShot{
+	width:150px;
+	float:left;
+	margin:10px;
+}
+.showHide{
+	display:none;
+}
+h4{cursor:pointer;}
+.reference{display:none;}

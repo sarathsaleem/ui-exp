@@ -14,6 +14,11 @@
 	opacity:1;
 	
 }
+.description{
+	width:370px;
+	right:0px;
+	position:absolute;
+}
 #packContainer{
 	position:relative;
 	left:200px;
@@ -36,7 +41,6 @@
 </style>			
 </head>	
 <body >
-Pack Man -- Game in HTML5
 <div class="description">
 			<h4>Explore Canvas HTML5 element,Game programming</h4>
 			<p>Control the Packman using arrow keys</p>
@@ -47,7 +51,7 @@ Pack Man -- Game in HTML5
 javascript pattern in program . 
 			</p>
 			<p>
-				This is my first attempt to create a user interactive game. This program need a lot of code optimization. The stages that have completed are 
+				This is my first attempt to create a user interactive game. This program need a lot of optimization.</br> The stages  completed are 
 (1) User 
 
 interaction using Arrow keys to control Packman (2) Random movements of enemies (3) Points and life calculations (4) Collision detection of enemies and 
@@ -57,7 +61,10 @@ Packman. Next goals are optimize screen rendering and fix speed issues, auto pla
 						
 		</div>
 		<div  id="packContainer">
-			<img id="packMan"  src="packMan.jpg"/>				
+			<img id="packMan"   src="images/packMan.jpg"/>	
+			<img  style="images/display:none"  src="packManDown.jpg"/>	
+			<img  style="display:none"  src="images/packManLeft.jpg"/>	
+			<img  style="display:none"  src="images/packManUp.jpg"/>				
 				<canvas  width=370px; height=410px;  id="packField"></canvas>
 				<canvas  width=370px; height=410px; id="roootMap"></canvas>
 				
@@ -497,16 +504,16 @@ function updateImg(name){
 	
 		switch(name.dir){
 							case 'right':
-							man.src ='packMan.jpg';	
+							man.src ='images/packMan.jpg';	
 							break;
 							case 'left':
-							man.src ='packManleft.jpg';
+							man.src ='images/packManleft.jpg';
 							break;
 							case 'down':
-							man.src='packManDown.jpg';
+							man.src='images/packManDown.jpg';
 							break;
 							case 'up':
-							man.src ='packManUp.jpg';			
+							man.src ='images/packManUp.jpg';			
 							}
 					
 		
