@@ -9,27 +9,30 @@
 
 <style type="text/css">
 body{
-overflow:hidden;
-background: #92d2fc; /* Old browsers */
-background: -moz-linear-gradient(top, #92d2fc 0%, #4fb8f9 33%, #0685e5 65%, #1076c9 84%, #1e5799 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92d2fc), color-stop(33%,#4fb8f9), color-stop(65%,#0685e5), color-stop(84%,#1076c9), color-stop(100%,#1e5799)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* IE10+ */
-background: linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92d2fc', endColorstr='#1e5799',GradientType=0 ); /* IE6-9 */
+	overflow:hidden;
+	margin: 0px;
+	background: #92d2fc; /* Old browsers */
+	background: -moz-linear-gradient(top, #92d2fc 0%, #4fb8f9 33%, #0685e5 65%, #1076c9 84%, #1e5799 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#92d2fc), color-stop(33%,#4fb8f9), color-stop(65%,#0685e5), color-stop(84%,#1076c9), color-stop(100%,#1e5799)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* IE10+ */
+	background: linear-gradient(top, #92d2fc 0%,#4fb8f9 33%,#0685e5 65%,#1076c9 84%,#1e5799 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92d2fc', endColorstr='#1e5799',GradientType=0 ); /* IE6-9 */
 }
 #water{
+	width:100%;
+	height:100%;
 	position:relative;
 }
+#startBtn{padding:5px;background:#CCC}
 .circle{
 	width:100px;
-	height:100px;
-	margin:0 auto;
+	height:100px;	
 	position:absolute;
 	top:100px;
-	border-radius:50px;
-	margin:-50px 0px 0px -50px;
+	left:100px;
+	border-radius:50px;	
 }
 .color1{
 	background: #ee3060; /* Old browsers */
@@ -42,84 +45,84 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#92d2fc', end
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee3060', endColorstr='#ee3060',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .color2{
-	background: #CC1C0D; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #CC1C0D 0%, transparent 10%, transparent 42%, #CC1C0D 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#CC1C0D), color-stop(10%,transparent), color-stop(42%,transparent), color-stop(100%,#CC1C0D)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #CC1C0D 0%,transparent 10%,transparent 42%,#CC1C0D 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #CC1C0D 0%,transparent 10%,transparent 42%,#CC1C0D 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #CC1C0D 0%,transparent 10%,transparent 42%,#CC1C0D 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #CC1C0D 0%,transparent 10%,transparent 42%,#CC1C0D 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CC1C0D', endColorstr='#CC1C0D',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background: #2cd6a3; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, #2cd6a3 0%, transparent 7%, #ff00ff 47%, transparent 78%, #ff3535 92%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#2cd6a3), color-stop(7%,transparent), color-stop(47%,#ff00ff), color-stop(78%,transparent), color-stop(92%,#ff3535)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #2cd6a3 0%,transparent 7%,#ff00ff 47%,transparent 78%,#ff3535 92%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #2cd6a3 0%,transparent 7%,#ff00ff 47%,transparent 78%,#ff3535 92%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #2cd6a3 0%,transparent 7%,#ff00ff 47%,transparent 78%,#ff3535 92%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, #2cd6a3 0%,transparent 7%,#ff00ff 47%,transparent 78%,#ff3535 92%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2cd6a3', endColorstr='#ff3535',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .color3{
-	background: #8BEB03; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #8BEB03 0%, transparent 10%, transparent 42%, #8BEB03 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#8BEB03), color-stop(10%,transparent), color-stop(42%,transparent), color-stop(100%,#8BEB03)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #8BEB03 0%,transparent 10%,transparent 42%,#8BEB03 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #8BEB03 0%,transparent 10%,transparent 42%,#8BEB03 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #8BEB03 0%,transparent 10%,transparent 42%,#8BEB03 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #8BEB03 0%,transparent 10%,transparent 42%,#8BEB03 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8BEB03', endColorstr='#8BEB03',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background: #0400FF; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, transparent 0%, #0400FF 33%, transparent 68%, #0400FF 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,transparent), color-stop(33%,#0400FF), color-stop(68%,transparent), color-stop(100%,#0400FF)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, transparent 0%,#0400FF 33%,transparent 68%,#0400FF 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, transparent 0%,#0400FF 33%,transparent 68%,#0400FF 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, transparent 0%,#0400FF 33%,transparent 68%,#0400FF 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, transparent 0%,#0400FF 33%,transparent 68%,#0400FF 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='transparent', endColorstr='#0400FF',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .color4{
 	background: #ee3060; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #ee3060 0%, transparent 10%, transparent 42%, #ee3060 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ee3060), color-stop(10%,transparent), color-stop(42%,transparent), color-stop(100%,#ee3060)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #ee3060 0%,transparent 10%,transparent 42%,#ee3060 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #ee3060 0%,transparent 10%,transparent 42%,#ee3060 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #ee3060 0%,transparent 10%,transparent 42%,#ee3060 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #ee3060 0%,transparent 10%,transparent 42%,#ee3060 100%); /* W3C */
+	background: -moz-radial-gradient(center, ellipse cover, #ee3060 0%, transparent 47%, #ee3060 56%, transparent 66%, #ee3060 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ee3060), color-stop(47%,transparent), color-stop(56%,#ee3060), color-stop(66%,transparent), color-stop(100%,#ee3060)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, #ee3060 0%,transparent 47%,#ee3060 56%,transparent 66%,#ee3060 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, #ee3060 0%,transparent 47%,#ee3060 56%,transparent 66%,#ee3060 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, #ee3060 0%,transparent 47%,#ee3060 56%,transparent 66%,#ee3060 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, #ee3060 0%,transparent 47%,#ee3060 56%,transparent 66%,#ee3060 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ee3060', endColorstr='#ee3060',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .color5{
-	background: #035AE7; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #035AE7 0%, transparent 10%, transparent 42%, #035AE7 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#035AE7), color-stop(10%,transparent), color-stop(42%,transparent), color-stop(100%,#035AE7)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #035AE7 0%,transparent 10%,transparent 42%,#035AE7 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #035AE7 0%,transparent 10%,transparent 42%,#035AE7 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #035AE7 0%,transparent 10%,transparent 42%,#035AE7 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #035AE7 0%,transparent 10%,transparent 42%,#035AE7 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#035AE7', endColorstr='#035AE7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background: #ff0000; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, transparent 0%, #ff0000 33%, transparent 68%, #ff0000 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,transparent), color-stop(33%,#ff0000), color-stop(68%,transparent), color-stop(100%,#ff0000)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, transparent 0%,#ff0000 33%,transparent 68%,#ff0000 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, transparent 0%,#ff0000 33%,transparent 68%,#ff0000 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, transparent 0%,#ff0000 33%,transparent 68%,#ff0000 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, transparent 0%,#ff0000 33%,transparent 68%,#ff0000 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='transparent', endColorstr='#ff0000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .color6{
-	background: #E61D01; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #E61D01 0%, transparent 10%, transparent 42%, #E61D01 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#E61D01), color-stop(10%,transparent), color-stop(42%,transparent), color-stop(100%,#E61D01)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #E61D01 0%,transparent 10%,transparent 42%,#E61D01 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #E61D01 0%,transparent 10%,transparent 42%,#E61D01 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #E61D01 0%,transparent 10%,transparent 42%,#E61D01 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #E61D01 0%,transparent 10%,transparent 42%,#E61D01 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E61D01', endColorstr='#E61D01',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background: #2AFF00; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, transparent 0%, #2AFF00 33%, transparent 68%, #2AFF00 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,transparent), color-stop(33%,#2AFF00), color-stop(68%,transparent), color-stop(100%,#2AFF00)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, transparent 0%,#2AFF00 33%,transparent 68%,#2AFF00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, transparent 0%,#2AFF00 33%,transparent 68%,#2AFF00 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, transparent 0%,#2AFF00 33%,transparent 68%,#2AFF00 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, transparent 0%,#2AFF00 33%,transparent 68%,#2AFF00 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='transparent', endColorstr='#2AFF00',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 .color7{
-	background: #ACA300; /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, #ACA300 0%, transparent 10%, transparent 42%, #ACA300 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ACA300), color-stop(10%,transparent), color-stop(42%,transparent), color-stop(100%,#ACA300)); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover, #ACA300 0%,transparent 10%,transparent 42%,#ACA300 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover, #ACA300 0%,transparent 10%,transparent 42%,#ACA300 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover, #ACA300 0%,transparent 10%,transparent 42%,#ACA300 100%); /* IE10+ */
-	background: radial-gradient(center, ellipse cover, #ACA300 0%,transparent 10%,transparent 42%,#ACA300 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ACA300', endColorstr='#ACA300',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	background: #FFFF00; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, transparent 0%, #FFFF00 33%, transparent 68%, #FFFF00 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,transparent), color-stop(33%,#FFFF00), color-stop(68%,transparent), color-stop(100%,#FFFF00)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, transparent 0%,#FFFF00 33%,transparent 68%,#FFFF00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, transparent 0%,#FFFF00 33%,transparent 68%,#FFFF00 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, transparent 0%,#FFFF00 33%,transparent 68%,#FFFF00 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, transparent 0%,#FFFF00 33%,transparent 68%,#FFFF00 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='transparent', endColorstr='#FFFF00',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
-
+.color8{
+	background: #FF7F00; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover, transparent 0%, #FF7F00 33%, transparent 68%, #FF7F00 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,transparent), color-stop(33%,#FF7F00), color-stop(68%,transparent), color-stop(100%,#FF7F00)); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover, transparent 0%,#FF7F00 33%,transparent 68%,#FF7F00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover, transparent 0%,#FF7F00 33%,transparent 68%,#FF7F00 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover, transparent 0%,#FF7F00 33%,transparent 68%,#FF7F00 100%); /* IE10+ */
+	background: radial-gradient(center, ellipse cover, transparent 0%,#FF7F00 33%,transparent 68%,#FF7F00 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='transparent', endColorstr='#FF7F00',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
 </style>
 </head>
 <body>
 <div id="fps" style="position:absolute;top:0px;right:0px;margin:5px;background:#000;color:#fff;font-weight:bold"></div>
     <div id="water" >
-	<!--<div class="circle color1"></div>
-	<div class="circle color2" style="left:30px;top:120px"></div>
-	<div class="circle color3" style="left:160px;top:220px"></div>
-	<div class="circle color4" style="left:390px;top:150px"></div>
-	<div class="circle color5" style="left:150px;top:320px"></div>
-	<div class="circle color6" style="left:440px;top:450px"></div>
-	<div class="circle color7" style="left:340px;top:510px"></div>
-	<div class="circle color2" style="left:130px;top:340px"></div>
-	<div class="circle color3" style="left:60px;top:90px"></div>
-	<div class="circle color4" style="left:190px;top:360px"></div>
-	<div class="circle color5" style="left:650px;top:120px"></div>-->
 	</div>
-</body>
+	<!-- <div  class="circle" style="margin:0px" id="randomDis"><div id="time"></div><div id="startBtn" >Start</div></div> -->
+	
+	</body>
 <script type="text/javascript">
 
 var screenX = window.screenX;
@@ -127,7 +130,6 @@ var screenY = window.screenY;
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;		
 var mouseX = (window.innerWidth - SCREEN_WIDTH);
-$('body').css('height',SCREEN_HEIGHT+'px');
 var mouseY = (window.innerHeight - SCREEN_HEIGHT);
 var mouseIsDown = false;
 var mouseDownOffset = { x: 0, y: 0 };
@@ -135,18 +137,15 @@ var mouseDownOffset = { x: 0, y: 0 };
 var fps = '';
 var fpsData = document.getElementById('fps');
 var lastLoop = new Date;
-var t0 = Date.now();
 
-var circles = $(".circle");
+var water = document.getElementById('water');
+var ranDis = document.getElementById('randomDis');
 var w = 100;
 var h = 100;
 var boundary = { x: 0, y: 0, width: 0, height: 0 };
 
 var gravity = { x: 0, y: 1.2 };
 var randomPos = { x: 0, y: 0 };
-
-
-
 function Circles()
  {
 	this.position = { x: 0, y: 0 };
@@ -156,40 +155,48 @@ function Circles()
 	this.circles = [];
 	this.generateCircles = function()
 	{
-		for(var i=0;i <60;i++)
+		for(var i=0;i<40;i++)
 		{
 		var pos = {
-			x:Math.floor(Math.random()*SCREEN_WIDTH),
-			y:Math.floor(Math.random()*SCREEN_HEIGHT),
-			color:"color"+Math.floor(Math.random()*7)
+			x:Math.floor(Math.random()*(SCREEN_WIDTH-100)+1),
+			y:Math.floor(Math.random()*(SCREEN_HEIGHT-100)+1),
+			color:"color"+(Math.floor(Math.random()*8)+1),
+			dx:(Math.floor(Math.random()*(6)+-3)),// * (2*Math.floor(Math.random()*2) -1),
+			dy:(Math.floor(Math.random()*(6)+-3))// * (2*Math.floor(Math.random()*2) -1)	
+					
 			}	
-			this.circles.push(pos);
+			this.circles.push(pos);			
 		}
 		
 		return this.circles;
 	}
 }
 
-var myC = new Circles();	
-var circles = myC.generateCircles();
+	
+var circles;
 var circlesDom ; 
 function genereteCDom()
 {
-	
+	var myC = new Circles();
+	circles = myC.generateCircles();
+	console.log(circles);
+	$(water).html('');
 	for(var i=0;i<circles.length;i++)
 	{
 		var C = '<div class="circle '+circles[i].color+'" style="left:'+circles[i].x+'px;top:'+circles[i].y+'px"></div>';
-		$('#water').append(C);
+		$(water).append(C).find(":last").bind('click',function(){$(this).animate({'width':'0px','height':'0px'},2000);});
 	}
-	circlesDom = $('.circle');
+	circlesDom = document.getElementsByClassName('circle');
+	
 }
+
 	genereteCDom();
-		
+			
 	document.addEventListener('mousemove', documentMouseMoveHandler, false);
 	document.addEventListener('mousedown', documentMouseDownHandler, false);
+	window.addEventListener('resize', windowResizeHandler, false);
 	windowResizeHandler();
 
-var myC = new Circles();
 
 function render()
 {
@@ -197,43 +204,22 @@ function render()
 	fps = 1000 / (thisLoop - lastLoop);
 	lastLoop = thisLoop;
 
+	for (var i=0;i<circles.length;i++){		
+		if(circles[i].x < 0 || circles[i].x > boundary.width-100){ circles[i].dx = -circles[i].dx;}
+		if(circles[i].y < 0 || circles[i].y > boundary.height-100){circles[i].dy = -circles[i].dy;}
 		
-	myC.velocity.x = ( ( mouseX ) - myC.position.x ) * 0.03;
-	myC.velocity.y = ( (  mouseY  ) - myC.position.y ) * 0.03;
-	
-	myC.position.x += myC.velocity.x;
-	myC.position.y += myC.velocity.y;
-	
-	myC.position.x = Math.max( Math.min( myC.position.x, boundary.x + boundary.width ), boundary.x );
-	myC.position.y = Math.max( Math.min( myC.position.y, boundary.y + boundary.height ), boundary.y );
-		
-	$("#water").css({'left':(myC.position.x-600)+'px','top':(myC.position.y-400)+'px'})
-	
-	bubble();	
-	
-		
-}
-
-var random = Math.random()*60;
-setInterval(function(){random = Math.random()*60},1000); 
-function bubble()
-{	
-	var t = (Date.now()-t0)/1000;
-	var a = Math.max((1-(t%Math.PI))*15,0);
-	var width = w+Math.sin(t*15)*a;
-	var height = h-Math.sin(t*15-0.1)*a;
-	//circlesDom.each(function(){
-		//$(this).css('top',(y-Math.abs(Math.sin(t)*100)+h/2)+"px");
-		$(circlesDom).eq(random).css('margin',(-height /2)+'px 0 0'+(-width/2)+'px');		
-		$(circlesDom).eq(random).css('width',width +"px");
-		$(circlesDom).eq(random).css('height',height+"px");
-	//	});
+		if(circles[i].y > boundary.height){circles[i].y = boundary.height-101;}
+		if(circles[i].x > boundary.width){circles[i].x = boundary.width-101;}
+		circles[i].x += circles[i].dx;
+		circles[i].y += circles[i].dy;
+		circlesDom[i].style.left=circles[i].x +'px';
+		circlesDom[i].style.top=circles[i].y +'px';
+			
+	}
 	
 }
 
-
-setInterval('render()',30); 
-
+var circleRender = setInterval('render()',30); 
 
 function windowResizeHandler() {
 		SCREEN_WIDTH = window.innerWidth;
@@ -241,15 +227,15 @@ function windowResizeHandler() {
 				
 		boundary.x = 0;
 		boundary.y = 0;
-		boundary.width = SCREEN_WIDTH-101;
-		boundary.height = SCREEN_HEIGHT-101;
+		boundary.width = SCREEN_WIDTH;
+		boundary.height = SCREEN_HEIGHT;		
+		document.body.style.height = SCREEN_HEIGHT+"px"; 
 }
 function documentMouseDownHandler(event) {
 		event.preventDefault();		
 		mouseDownOffset.x =  ( event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5 );
 		mouseDownOffset.y =  ( event.clientY - (window.innerHeight - SCREEN_HEIGHT) * .5 );				
 		mouseIsDown = true;		
-	
 	}
 	
 function documentMouseMoveHandler(event) {		
@@ -262,7 +248,39 @@ function  showFPS(){
 }
 setInterval(showFPS, 300 );
 
-	
+var GameLogic = function(){
+	this.level =0;
+	this.maxLevel =5;
+	this.gametime=30;
+	this.levelTime = [5,15,15,10,5];
+	this.levelClick = [2,3,3,4,4];
+	var update;
+	this.start = function(){
+		$(ranDis).addClass("color"+(Math.floor(Math.random()*8)+1));
+		this.gametime  = this.levelTime[this.level];
+		update = setInterval('Logic.updateTime()',1000)		
+	}
+	this.updateTime = function(){		
+		this.gametime--;
+		ranDis.childNodes[0].innerHTML = this.gametime;
+		if(this.gametime==0){		
+			this.clearGame();		
+		}
+	}
+	this.clearGame=function(){
+		clearInterval(update);
+		clearInterval(circleRender);		
+		genereteCDom();
+		alert('Game Over');
+		
+	}
+}
+
+var Logic= new GameLogic();
+$("#startBtn").click(function(){
+	Logic.start();
+});
+
 </script>
 
 </html>
